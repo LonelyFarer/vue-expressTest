@@ -28,19 +28,19 @@
 <div class="navbg">
     <div class="myul">
       <ul class="mainul">
-      <li><a class="active" href="javascript:void(0)" @click="Home()">首页</a></li>
-      <li><a href="javascript:void(0)" @click="nous()">常识</a></li>
-      <li>
+      <li :class="activeClass == index ? 'active':''" v-for="(item,index) in itemList" :key="index" @click="Home(index)"><a  href="javascript:void(0)" >{{item}}</a></li>
+      <!-- <li><a href="javascript:void(0)" @click="nous()">常识</a></li>
+      <li> -->
         <!-- <el-dropdown :hide-on-click="false"> -->
-      <a href="javascript:void(0)" @click="diet()">膳食</a>
+      <!-- <a href="javascript:void(0)" @click="diet()">膳食</a> -->
       <!-- <el-dropdown-menu slot="dropdown">
         <el-dropdown-item>养生食谱</el-dropdown-item>
         <el-dropdown-item>养生问答</el-dropdown-item>
         <el-dropdown-item>养生科普</el-dropdown-item>
       </el-dropdown-menu>
       </el-dropdown>-->
-      </li> 
-      <li><a href="javascript:void(0)" @click="disease()">疾病</a></li>
+      <!-- </li> 
+      <li><a href="javascript:void(0)" @click="disease()">疾病</a></li> -->
       <!-- <li><el-dropdown :hide-on-click="false">
       <a href="javascript:void(0)" @click="health()">养生</a>
       <el-dropdown-menu slot="dropdown">
@@ -51,13 +51,13 @@
         <el-dropdown-item @click.native="livinghealth()">生活养生</el-dropdown-item>
         <el-dropdown-item @click.native="healthcultivation()">中医养生</el-dropdown-item>
       </el-dropdown-menu></el-dropdown></li> -->
-      <li> <a href="javascript:void(0)" @click="seasonhealth()">季节养生</a></li>
+      <!-- <li> <a href="javascript:void(0)" @click="seasonhealth()">季节养生</a></li>
       <li> <a href="javascript:void(0)" @click="populationhealth()">人群养生</a></li>
       <li> <a href="javascript:void(0)" @click="sporthealth()">运动养生</a></li>
       <li> <a href="javascript:void(0)" @click="livinghealth()">生活养生</a></li>
       <li> <a href="javascript:void(0)" @click="healthcultivation()">中医养生</a></li>
       <li><a href="javascript:void(0)" @click="special()">专题</a></li>
-      
+       -->
     </ul>
     </div>
   </div>
@@ -83,8 +83,9 @@ export default {
  data() {
       return {
          searchValue:'',
-         
-
+         activeClass: 0, 
+         itemList:['首页','常识','膳食','疾病','季节养生','人群养生','运动养生','生活养生','中医养生','专题'],
+         routerList:['Home','nous','diet','disease','seasonhealth','populationhealth','sporthealth','livinghealth','healthcultivation','special']
       }
      
     },
@@ -120,8 +121,9 @@ export default {
       handleSelect(key, keyPath) {
         console.log(key, keyPath);
       },
-      Home(){
-        this.$router.push('/Home')
+      Home(index){
+        this.activeClass = index;
+        this.$router.push('/'+this.routerList[index])
       },
       nous(){
         this.$router.push('/nous')
@@ -249,6 +251,7 @@ export default {
     width: 1200px;
     margin:0 auto;
     padding:0;
+    background-color: #17d14f;
     li {
     float: left;
     a {
@@ -276,5 +279,6 @@ export default {
    width:1200px;
    margin:auto;
    padding-top:40px;
+   text-align:center;
  }
 </style>
